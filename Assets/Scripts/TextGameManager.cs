@@ -5,17 +5,16 @@ using TMPro;
 
 public class TextGameManager : MonoBehaviour
 {
-    public TextMeshProUGUI storyTextMeshPro;
+    public TextMeshProUGUI storyTextMeshPro, HPtextMeshPro, STAtextMeshPro;
     public string storyText;
-    public TextMeshProUGUI HPtextMeshPro;
-    public int HPvalue;
-    public TextMeshProUGUI STAtextMeshPro;
-    public int STAvalue;
-    public GameObject Level1Choices, Level2Choices;
+    public int HPvalue, STAvalue;
+    public GameObject UI, MainMenu, Level1Choices, Level2Choices;
 
     // Start is called before the first frame update
     void Start()
     {
+        UI.SetActive(false);
+        Level1Choices.SetActive(false);
         Level2Choices.SetActive(false);
     }
 
@@ -25,6 +24,14 @@ public class TextGameManager : MonoBehaviour
         storyTextMeshPro.text = storyText;
         HPtextMeshPro.text = HPvalue.ToString();
         STAtextMeshPro.text = STAvalue.ToString();
+    }
+
+    public void StartGame()
+    {
+        storyText = "You woke up from a good dream";
+        Level1Choices.SetActive(true);
+        MainMenu.SetActive(false);
+        UI.SetActive(true);
     }
 
     public void RollOver()
@@ -73,5 +80,10 @@ public class TextGameManager : MonoBehaviour
         HPvalue += 1;
         STAvalue += 1;
         Level2Choices.SetActive(false);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
