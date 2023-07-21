@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class TextGameManager : MonoBehaviour
 {
     public TextMeshProUGUI storyTextMeshPro, HPtextMeshPro, STAtextMeshPro;
     public string storyText;
     public int HPvalue, STAvalue;
-    public GameObject UI, MainMenu, Level1Choices, Level2Choices;
+    public GameObject UI, MainMenu, RetryScreen, Level1Choices, Level2Choices, Level3Choices, Page5Choices;
 
     // Start is called before the first frame update
     void Start()
     {
         UI.SetActive(false);
-        Level1Choices.SetActive(false);
-        Level2Choices.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,58 +27,72 @@ public class TextGameManager : MonoBehaviour
 
     public void StartGame()
     {
-        storyText = "You woke up from a good dream";
+        storyText = "\"I'm pretty bored in this room\" you think to yourself";
         Level1Choices.SetActive(true);
         MainMenu.SetActive(false);
         UI.SetActive(true);
     }
 
-    public void RollOver()
+    //Level 1
+    public void RollOver() //Look around
     {
-        storyText = "You can't fall asleep because of a deafened, but still annoying, noise";
-        HPvalue-= 3;
-        STAvalue-= 5;
+        storyText = "A key! Might be useful for that door there";
+        Level1Choices.SetActive(false);
+        Level2Choices.SetActive(false);
+        Level3Choices.SetActive(true);
+    }
+
+    public void TurnOffAlarm() //Open the door
+    {
+        storyText = "The door's locked. \"I think I can bust it open!\"";
         Level1Choices.SetActive(false);
         Level2Choices.SetActive(true);
+        STAvalue -= 1;
     }
 
-    public void GoBackToSleep()
+    //Level 2
+    public void GoForIt() //Death
     {
-        storyText = "You can't fall asleep because of an annoying noise";
-        HPvalue-= 9;
-        Level1Choices.SetActive(false);
-        Level2Choices.SetActive(true);
-    }
-
-    public void TurnOffAlarm()
-    {
-        storyText = "No more annoying noise, but you have responsibilities for today ;-;";
-        STAvalue-= 3;
-        Level1Choices.SetActive(false);
-        Level2Choices.SetActive(true);
-    }
-
-    public void BegForTime()
-    {
-        storyText = "That's not happening, now go to school";
-        HPvalue-= 1;
+        storyText = "You, person, are one exciting individual :D";
         Level2Choices.SetActive(false);
+        RetryScreen.SetActive(true);
+        HPvalue = 0;
+        STAvalue = 0;
     }
 
-    public void Accept()
+    public void searchRoom()
     {
-        storyText = "Aight champ, get it over with";
-        HPvalue-= 2;
-        STAvalue-= 1;
-        Level2Choices.SetActive(false);
+        storyText = "An explosive! Unsure about \nwhat it is... wanna take it?";
+        Level3Choices.SetActive(false);
+        Page5Choices.SetActive(true);
+        STAvalue -= 1;
     }
 
-    public void Cry()
+    public void openDoor2()
     {
-        storyText = "Just let it all out";
-        HPvalue += 1;
-        STAvalue += 1;
-        Level2Choices.SetActive(false);
+        storyText = "Hey, you, you're finally awake. You were tring to cross the border, right?";
+        Level3Choices.SetActive(false);
+        RetryScreen.SetActive(true);
+        HPvalue = 10;
+        STAvalue = 10;
+    }
+
+    public void bombYes()
+    {
+        storyText = "KABOOM";
+        Page5Choices.SetActive(false);
+        RetryScreen.SetActive(true);
+        HPvalue = 0;
+        STAvalue = 0;
+    }
+
+    public void bombNo()
+    {
+        storyText = "A wise choice... hey what's that ticking sou- *KABOOM*";
+        Page5Choices.SetActive(false);
+        RetryScreen.SetActive(true);
+        HPvalue = 0;
+        STAvalue = 0;
     }
 
     public void Quit()
